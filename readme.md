@@ -7,7 +7,7 @@ Publish and deploy serverless dotnet projects using github managed artifacts.
 1. Install
 
 ```bash
-$ yarn add @totallymoney/github-serverless-dotnet-artifacts
+$ yarn add -D @totallymoney/github-serverless-dotnet-artifacts
 ```
 
 2. Add scripts to your `package.json`
