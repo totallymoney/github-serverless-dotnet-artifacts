@@ -2,6 +2,8 @@
 
 Publish and deploy serverless dotnet projects using github managed artifacts.
 
+Serverless packaging is performed [correctly](https://blair55.github.io/blog/serverless-package-done-right/). 
+
 ## Usage
 
 1. Install
