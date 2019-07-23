@@ -1,0 +1,17 @@
+{
+  "name": "@totallymoney/github-serverless-dotnet-artifacts",
+  "version": "0.0.1",
+  "description": "Use github releases to publish and deploy serverless framework dotnet projects",
+  "main": "index.js",
+  "author": "blair55",
+  "license": "MIT",
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/totallymoney/github-serverless-dotnet-artifacts.git"
+  },
+  "bin": {
+    "gsda-publish": "bin/publish.sh",
+    "gsda-deploy": "bin/deploy.sh"
+  }
+}
