@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "description": "Use github releases to publish and deploy serverless framework dotnet projects",
   "main": "index.js",
-  "author": "blair55",
+  "author": "totallymoney",
   "license": "MIT",
   "private": false,
   "repository": {
