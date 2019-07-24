@@ -2,6 +2,11 @@
 
 set -e
 
+REQUIREMENTS="jq yarn dotnet curl"
+for i in $REQUIREMENTS; do
+    hash "$i" 2>/dev/null || { echo "$0": I require "$i" but it\'s not installed.; exit 1; }
+done
+
 if [ $# -ne 3 ]; then
     echo "$0": usage: deploy.sh REPOSITORY VERSION ENVIRONMENT
     echo "$0": eg: deploy.sh mediaingenuity/myrepo 1.2.3456 stage

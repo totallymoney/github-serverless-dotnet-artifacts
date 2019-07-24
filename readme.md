@@ -4,6 +4,14 @@ Publish and deploy serverless dotnet projects using github managed artifacts.
 
 Serverless packaging is performed [correctly](https://blair55.github.io/blog/serverless-package-done-right/). 
 
+## Requirements
+
+Make sure your target environment has cli tools `jq`, `yarn`, `curl` & `dotnet` installed. Also, make sure the `Amazon.Lambda.Tools` nuget package installed globally.
+
+```bash
+$ dotnet tool install -g Amazon.Lambda.Tools
+```
+
 ## Usage
 
 1. Install
@@ -21,7 +29,14 @@ $ yarn add -D @totallymoney/github-serverless-dotnet-artifacts
 }
 ```
 
-3. Add a `publish` step to your CI pipeline to create a github release
+3. Specify this package location in your `serverless.yml`
+
+```yaml
+package:
+  artifact: package.zip
+```
+
+4. Add a `publish` step to your CI pipeline to create a github release
 
 ```bash
 $ yarn run publish $VERSION $GITHASH
@@ -30,7 +45,7 @@ $ yarn run publish $VERSION $GITHASH
 - `$VERSION` is the github release name in [semver](http://semver.org) format
 - `$GITHASH` is the commit that triggered the build and will be tagged
 
-4. Use the `deploy` step to update an enviroment
+5. Use the `deploy` step to update an enviroment
 
 ```bash
 $ yarn run deploy $VERSION $ENVIRONMENT
@@ -44,5 +59,5 @@ $ yarn run deploy $VERSION $ENVIRONMENT
 Make sure you belong to the [totallymoney](https://www.npmjs.com/settings/totallymoney/packages) npm organization. Then make changes to the source code and publish. Enter the new version number as prompted and push the resulting commit.
 
 ```bash
-$ [npm|yarn] publish --access public
+$ yarn publish --access public
 ```
