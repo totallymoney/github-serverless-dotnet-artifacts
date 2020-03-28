@@ -32,5 +32,5 @@ unzip $DEPLOY_ZIP -d $DEPLOY_DIR
 rm -rf $DEPLOY_ZIP
 cd $DEPLOY_DIR
 yarn install -s --no-progress
-yarn run sls deploy --stage "$ENVIRONMENT" --force --verbose
+yarn run sls deploy --stage "$ENVIRONMENT" --verbose
 cd .. || exit
