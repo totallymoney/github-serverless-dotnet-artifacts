@@ -31,9 +31,11 @@ mkdir $PUBLISH_DIR
 
 # can only publish ready to run on linux platform
 if [ "$(uname)" == "Linux" ]; then
+    echo "Platform is Linux; PublishReadyToRun=true"
     dotnet lambda package "$PUBLISH_DIR/package.zip" -pl src -c Release \
         --msbuild-parameters "/p:PublishReadyToRun=true --self-contained false"
 else
+    echo "Platform is $(uname)"
     dotnet lambda package "$PUBLISH_DIR/package.zip" -pl src -c Release
 fi
 
