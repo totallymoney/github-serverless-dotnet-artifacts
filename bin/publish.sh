@@ -30,7 +30,15 @@ rm -rf $PUBLISH_DIR
 mkdir $PUBLISH_DIR
 dotnet tool restore
 dotnet paket restore
-dotnet lambda package "$PUBLISH_DIR/package.zip" -pl src -c Release
+
+# can only publish ready to run on linux platform
+if [ "$(uname)" == "Linux" ]; then
+    dotnet lambda package "$PUBLISH_DIR/package.zip" -pl src -c Release \
+        --msbuild-parameters "/p:PublishReadyToRun=true --self-contained false"
+else
+    dotnet lambda package "$PUBLISH_DIR/package.zip" -pl src -c Release
+fi
+
 cp serverless.yml "$PUBLISH_DIR/serverless.yml"
 cp package.json "$PUBLISH_DIR/package.json"
 cp yarn.lock "$PUBLISH_DIR/yarn.lock"
