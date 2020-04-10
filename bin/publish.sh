@@ -28,8 +28,6 @@ PUBLISH_ZIP="$VERSION.zip"
 
 rm -rf $PUBLISH_DIR
 mkdir $PUBLISH_DIR
-dotnet tool restore
-dotnet paket restore
 
 # can only publish ready to run on linux platform
 if [ "$(uname)" == "Linux" ]; then
