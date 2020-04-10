@@ -29,6 +29,7 @@ PUBLISH_ZIP="$VERSION.zip"
 rm -rf $PUBLISH_DIR
 mkdir $PUBLISH_DIR
 dotnet tool restore
+dotnet paket restore
 dotnet lambda package "$PUBLISH_DIR/package.zip" -pl src -c Release
 cp serverless.yml "$PUBLISH_DIR/serverless.yml"
 cp package.json "$PUBLISH_DIR/package.json"
