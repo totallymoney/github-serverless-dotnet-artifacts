@@ -49,15 +49,16 @@ cd .. || exit
 git fetch origin
 LATEST_TAG="$(git describe --tags --abbrev=0)"
 MSGS_SINCE_LATEST_TAG="$(git shortlog "$LATEST_TAG".."$COMMIT" --pretty="%h %s")"
+GITHUB_AUTH_HEADER="Authorization: token $GITHUB_OAUTH_TOKEN"
 
 jq -n \
     --arg name "$VERSION" \
     --arg commit "$COMMIT" \
     --arg body "$MSGS_SINCE_LATEST_TAG" \
     '{ tag_name: $name, name: $name, target_commitish: $commit, body: $body }' |
-    curl -s -X POST -d@- "https://api.github.com/repos/$REPOSITORY/releases?access_token=$GITHUB_OAUTH_TOKEN" |
+    curl -s -X POST -H "$GITHUB_AUTH_HEADER" -d@- "https://api.github.com/repos/$REPOSITORY/releases" |
     jq ".upload_url" |
     sed "s/{?name,label}/?name=$PUBLISH_ZIP/" |
     sed 's/"//g' |
-    xargs curl -s -X POST -H "Authorization: token $GITHUB_OAUTH_TOKEN" -H "Content-Type: application/octet-stream" --data-binary @"$PUBLISH_DIR/$PUBLISH_ZIP" |
+    xargs curl -s -X POST -H "$GITHUB_AUTH_HEADER" -H "Content-Type: application/octet-stream" --data-binary @"$PUBLISH_DIR/$PUBLISH_ZIP" |
     jq

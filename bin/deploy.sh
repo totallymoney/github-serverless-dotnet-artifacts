@@ -21,12 +21,13 @@ fi
 REPOSITORY=$1
 export VERSION=$2
 ENVIRONMENT=$3
+GITHUB_AUTH_HEADER="Authorization: token $GITHUB_OAUTH_TOKEN"
 RELEASES_API="https://api.github.com/repos/$REPOSITORY/releases"
-ASSET_ID=$(curl -s -H "Authorization: token $GITHUB_OAUTH_TOKEN" "$RELEASES_API/tags/$VERSION" | jq ".assets[0].id")
+ASSET_ID=$(curl -s -H "$GITHUB_AUTH_HEADER" "$RELEASES_API/tags/$VERSION" | jq ".assets[0].id")
 DEPLOY_DIR="deploy"
 DEPLOY_ZIP="$DEPLOY_DIR.zip"
 
-curl -sL -H "Accept: application/octet-stream" "$RELEASES_API/assets/$ASSET_ID?access_token=$GITHUB_OAUTH_TOKEN" -o "$DEPLOY_ZIP"
+curl -sL -H "$GITHUB_AUTH_HEADER" -H "Accept: application/octet-stream" "$RELEASES_API/assets/$ASSET_ID" -o "$DEPLOY_ZIP"
 rm -rf $DEPLOY_DIR
 unzip $DEPLOY_ZIP -d $DEPLOY_DIR
 rm -rf $DEPLOY_ZIP
