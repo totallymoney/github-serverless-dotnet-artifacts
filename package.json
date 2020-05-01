@@ -1,6 +1,6 @@
 {
   "name": "@totallymoney/github-serverless-dotnet-artifacts",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "Use github releases to publish and deploy serverless framework dotnet projects",
   "main": "index.js",
   "author": "totallymoney",
