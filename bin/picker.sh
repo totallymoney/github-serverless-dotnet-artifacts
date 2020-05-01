@@ -8,4 +8,4 @@ for i in $REQUIREMENTS; do
 done
 
 pip3 install -q pick
-python3 picker.py
+python3 bin/picker.py
