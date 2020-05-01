@@ -13,6 +13,6 @@
   "bin": {
     "gsda-publish": "bin/publish.sh",
     "gsda-deploy": "bin/deploy.sh",
-    "gsda-pick": "pip3 install pick && python3 bin/picker.py"
+    "gsda-pick": "bin/picker.sh"
   }
 }
