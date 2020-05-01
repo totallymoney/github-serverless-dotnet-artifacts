@@ -1,7 +1,7 @@
-import pick
-import subprocess
-from signal import signal, SIGINT
 from sys import exit
+from signal import signal, SIGINT
+import subprocess
+import pick
 
 
 def handler(signal_received, frame):
