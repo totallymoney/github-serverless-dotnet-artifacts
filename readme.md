@@ -20,12 +20,13 @@ $ dotnet tool install -g Amazon.Lambda.Tools
 $ yarn add -D @totallymoney/github-serverless-dotnet-artifacts
 ```
 
-2. Add scripts to your `package.json`
+2. Add these scripts to your `package.json`
 
 ```json
 "scripts": {
   "publish": "gsda-publish <org/repo>",
-  "deploy": "gsda-deploy <org/repo>"
+  "deploy": "gsda-deploy <org/repo>",
+  "pick": "gsda-pick"
 }
 ```
 
@@ -45,7 +46,7 @@ $ yarn run publish $VERSION $GITHASH
 - `$VERSION` is the github release name in [semver](http://semver.org) format
 - `$GITHASH` is the commit that triggered the build and will be tagged
 
-5. Use the `deploy` step to update an enviroment
+5. Use the `deploy` command to update an enviroment
 
 ```bash
 $ yarn run deploy $VERSION $ENVIRONMENT
@@ -53,6 +54,12 @@ $ yarn run deploy $VERSION $ENVIRONMENT
 
 - `$VERSION` is the github release to deploy
 - `$ENVIRONMENT` is the target environment (aka serverless `stage`)
+
+6. Use `pick` for interactive deployments!
+
+```bash
+$ yarn pick
+```
 
 ## Development
 
