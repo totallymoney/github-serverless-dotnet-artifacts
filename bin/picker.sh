@@ -7,8 +7,8 @@ for i in $REQUIREMENTS; do
     hash "$i" 2>/dev/null || { echo "$0": I require "$i" but it\'s not installed.; exit 1; }
 done
 
-pip3 install -q pick yq
-git fetch origin
+pip3 install pick yq --quiet
+git fetch origin --quiet
 PICKER_PATH="$(yarn bin)/$(dirname "$(readlink "$0")")/picker.py"
 CANDIDATE_FUNCTION_NAME=$(yq -r '.service + "-prod-" + (.functions | keys? | .[0])' serverless.yml)
 
