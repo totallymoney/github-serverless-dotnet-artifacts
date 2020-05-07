@@ -5,7 +5,7 @@ import pick
 
 
 max_versions = 7
-env_options = ['stage', 'prod']
+env_options = ['prod', 'stage']
 
 
 def handler(signal_received, frame):
@@ -38,8 +38,8 @@ if __name__ == '__main__':
     env, _ = pick.pick(env_options, 'choose environment')
     version = version_msg.split()[0]
     confirm_msg = 'deploy {} to {}'.format(version, env)
-    _, confirm_res = pick.pick([confirm_msg, 'cancel'], 'confirm')
-    if confirm_res == 0:
+    _, confirm_res = pick.pick(['cancel', confirm_msg], 'confirm')
+    if confirm_res > 0:
         print(confirm_msg)
         subprocess.call(["yarn", "deploy", version, env])
     else:
