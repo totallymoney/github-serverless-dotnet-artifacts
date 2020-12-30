@@ -7,11 +7,11 @@ for i in $REQUIREMENTS; do
     hash "$i" 2>/dev/null || { echo "$0": I require "$i" but it\'s not installed.; exit 1; }
 done
 
-if [ $# -ne 3 ]; then
-    echo "$0": usage: publish.sh REPOSITORY VERSION COMMIT
-    echo "$0": eg: publish.sh mediaingenuity/myrepo 1.2.3456 master
+if [ $# -ne 4 ]; then
+    echo "$0": usage: publish.sh REPOSITORY PROJECT VERSION COMMIT
+    echo "$0": eg: publish.sh mediaingenuity/myrepo src 1.2.3456 master
     echo "$0": OR
-    echo "$0": eg: publish.sh mediaingenuity/myrepo 1.2.3456 b7232ef30b17afbe6d6b4703784cd5e69956e104
+    echo "$0": eg: publish.sh mediaingenuity/myrepo path/to/project.fsproj 1.2.3456 b7232ef30b17afbe6d6b4703784cd5e69956e104
     exit 1
 fi
 
@@ -21,8 +21,9 @@ if [ -z "$GITHUB_OAUTH_TOKEN" ]; then
 fi
 
 REPOSITORY=$1
-VERSION=$2
-COMMIT=$3
+PROJECT=$2
+VERSION=$3
+COMMIT=$4
 PUBLISH_DIR="publish"
 PUBLISH_ZIP="$VERSION.zip"
 
@@ -32,11 +33,11 @@ mkdir $PUBLISH_DIR
 # can only publish ready to run on linux platform
 if [ "$(uname)" == "Linux" ]; then
     echo "Platform is Linux; PublishReadyToRun=true"
-    dotnet lambda package "$PUBLISH_DIR/package.zip" -pl src -c Release \
+    dotnet lambda package "$PUBLISH_DIR/package.zip" -pl "$PROJECT" -c Release \
         --msbuild-parameters "/p:PublishReadyToRun=true --self-contained false"
 else
     echo "Platform is $(uname)"
-    dotnet lambda package "$PUBLISH_DIR/package.zip" -pl src -c Release
+    dotnet lambda package "$PUBLISH_DIR/package.zip" -pl "$PROJECT" -c Release
 fi
 
 cp serverless.yml "$PUBLISH_DIR/serverless.yml"

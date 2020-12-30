@@ -24,11 +24,14 @@ $ yarn add -D @totallymoney/github-serverless-dotnet-artifacts
 
 ```json
 "scripts": {
-  "publish": "gsda-publish <org/repo>",
+  "publish": "gsda-publish <org/repo> <project_path>",
   "deploy": "gsda-deploy <org/repo>",
   "pick": "gsda-pick"
 }
 ```
+
+* `<org/repo>` could be `mediaingenuity/myrepo` or `totallymoney/repo.name`
+* `<project_path>` could be `src` or `path/to/project.fsroj`
 
 3. Specify this package location in your `serverless.yml`
 
