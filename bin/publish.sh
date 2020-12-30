@@ -47,7 +47,6 @@ cd $PUBLISH_DIR
 zip -r "$PUBLISH_ZIP" .
 cd .. || exit
 
-git fetch origin
 LATEST_TAG="$(git describe --tags --abbrev=0)"
 MSGS_SINCE_LATEST_TAG="$(git shortlog "$LATEST_TAG".."$COMMIT" --pretty="%h %s")"
 GITHUB_AUTH_HEADER="Authorization: token $GITHUB_OAUTH_TOKEN"
