@@ -60,5 +60,4 @@ jq -n \
     jq ".upload_url" |
     sed "s/{?name,label}/?name=$PUBLISH_ZIP/" |
     sed 's/"//g' |
-    xargs curl -s -X POST -H "$GITHUB_AUTH_HEADER" -H "Content-Type: application/octet-stream" --data-binary @"$PUBLISH_DIR/$PUBLISH_ZIP" |
-    jq
+    xargs curl -s -X POST -H "$GITHUB_AUTH_HEADER" -H "Content-Type: application/octet-stream" --data-binary @"$PUBLISH_DIR/$PUBLISH_ZIP"
