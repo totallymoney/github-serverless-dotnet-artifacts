@@ -13,7 +13,7 @@
   "bin": {
     "gsda-publish": "bin/publish.sh",
     "gsda-deploy": "bin/deploy.sh",
-    "gsda-pick": "git fetch origin --quiet && bin/pick.js"
+    "gsda-pick": "bin/pick.js"
   },
   "scripts": {
     "postversion": "git push && git push --tags"
