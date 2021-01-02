@@ -26,12 +26,15 @@ $ yarn add -D @totallymoney/github-serverless-dotnet-artifacts
 "scripts": {
   "publish": "gsda-publish <org/repo> <project_path>",
   "deploy": "gsda-deploy <org/repo>",
-  "pick": "gsda-pick"
+  "pick": "gsda-pick -e stage -e prod -c 5"
 }
 ```
 
 * `<org/repo>` could be `mediaingenuity/myrepo` or `totallymoney/repo.name`
 * `<project_path>` could be `src` or `path/to/project.fsroj`
+* `-e` (multiple) are preset environments for `pick`
+* `-c` is the version list count for `pick`
+* both `-e` and `-c` have sensible defaults and can be overridden when `pick` is called
 
 3. Specify this package location in your `serverless.yml`
 

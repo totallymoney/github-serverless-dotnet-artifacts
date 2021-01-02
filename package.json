@@ -2,7 +2,7 @@
   "name": "@totallymoney/github-serverless-dotnet-artifacts",
   "version": "1.2.3",
   "description": "Use github releases to publish and deploy serverless framework dotnet projects",
-  "main": "index.js",
+  "type": "module",
   "author": "totallymoney",
   "license": "MIT",
   "private": false,
@@ -13,9 +13,18 @@
   "bin": {
     "gsda-publish": "bin/publish.sh",
     "gsda-deploy": "bin/deploy.sh",
-    "gsda-pick": "bin/picker.sh"
+    "gsda-pick": "git fetch origin --quiet && bin/pick.js"
   },
   "scripts": {
     "postversion": "git push && git push --tags"
+  },
+  "dependencies": {
+    "async": "^3.2.0",
+    "aws-sdk": "^2.819.0",
+    "date-fns": "^2.16.1",
+    "enquirer": "^2.3.6",
+    "js-yaml": "^3.14.1",
+    "minimist": "^1.2.5",
+    "nodegit": "^0.27.0"
   }
 }
