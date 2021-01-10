@@ -21,14 +21,14 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
-    "ansi-colors": "^4.1.1",
     "async": "^3.2.0",
     "aws-sdk": "^2.819.0",
     "date-fns": "^2.16.1",
     "enquirer": "^2.3.6",
     "js-yaml": "^4.0.0",
     "minimist": "^1.2.5",
-    "nodegit": "^0.27.0"
+    "nodegit": "^0.27.0",
+    "ora": "^5.2.0"
   },
   "devDependencies": {
     "eslint": "^7.17.0",
