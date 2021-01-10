@@ -21,6 +21,8 @@ fi
 REPOSITORY=$1
 export VERSION=$2
 ENVIRONMENT=$3
+
+NOW_ISO=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 GITHUB_AUTH_HEADER="Authorization: token $GITHUB_OAUTH_TOKEN"
 RELEASES_API="https://api.github.com/repos/$REPOSITORY/releases"
 ASSET_ID=$(curl -s -H "$GITHUB_AUTH_HEADER" "$RELEASES_API/tags/$VERSION" | jq ".assets[0].id")
@@ -33,5 +35,5 @@ unzip $DEPLOY_ZIP -d $DEPLOY_DIR
 rm -rf $DEPLOY_ZIP
 cd $DEPLOY_DIR
 yarn install -s --no-progress
-yarn run sls deploy --stage "$ENVIRONMENT" --verbose
+DEPLOYED_DATE=$NOW_ISO yarn run sls deploy --stage "$ENVIRONMENT" --verbose
 cd .. || exit
