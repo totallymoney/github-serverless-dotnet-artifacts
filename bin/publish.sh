@@ -43,6 +43,7 @@ fi
 cp serverless.yml "$PUBLISH_DIR/serverless.yml"
 cp package.json "$PUBLISH_DIR/package.json"
 cp yarn.lock "$PUBLISH_DIR/yarn.lock"
+[ -d "./serverless-artifacts" ] && cp -r serverless-artifacts "$PUBLISH_DIR"
 cd $PUBLISH_DIR
 zip -r "$PUBLISH_ZIP" .
 cd .. || exit
