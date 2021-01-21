@@ -27,9 +27,9 @@
     "enquirer": "^2.3.6",
     "js-yaml": "^4.0.0",
     "minimist": "^1.2.5",
-    "nodegit": "^0.27.0",
     "number-to-words": "^1.2.4",
-    "ora": "^5.2.0"
+    "ora": "^5.2.0",
+    "simple-git": "^2.31.0"
   },
   "devDependencies": {
     "eslint": "^7.17.0",
