@@ -6,10 +6,12 @@ Serverless packaging is performed [correctly](https://blair55.github.io/blog/ser
 
 ## Requirements
 
-Make sure your target environment has cli tools `jq`, `yarn`, `curl` & `dotnet` installed. Also, make sure the `Amazon.Lambda.Tools` nuget package installed globally.
+* `jq`, `yarn`, `curl` & `dotnet` are available on the command line
+* `Amazon.Lambda.Tools` dotnet tool is installed in the target project
 
 ```bash
-$ dotnet tool install -g Amazon.Lambda.Tools
+$ dotnet new tool-manifest
+$ dotnet tool install Amazon.Lambda.Tools
 ```
 
 ## Usage
