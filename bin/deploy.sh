@@ -26,8 +26,8 @@ NOW_ISO=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 GITHUB_AUTH_HEADER="Authorization: token $GITHUB_OAUTH_TOKEN"
 RELEASES_API="https://api.github.com/repos/$REPOSITORY/releases"
 
-CURL_RESPONSE=`curl -s -H "$GITHUB_AUTH_HEADER" "$RELEASES_API/tags/$VERSION"`
-ERROR_MESSAGE=`echo $CURL_RESPONSE | jq ".message"`
+CURL_RESPONSE=$(curl -s -H "$GITHUB_AUTH_HEADER" "$RELEASES_API/tags/$VERSION")
+ERROR_MESSAGE=$(echo "$CURL_RESPONSE" | jq ".message")
 
 if [ "$ERROR_MESSAGE" == "\"Bad credentials\"" ]; then
     echo "Error: Invalid GITHUB_OAUTH_TOKEN"
@@ -40,7 +40,7 @@ elif [ "$ERROR_MESSAGE" != "null" ]; then
     exit 1
 fi
 
-ASSET_ID=`echo $CURL_RESPONSE | jq ".assets[0].id"`
+ASSET_ID=$(echo "$CURL_RESPONSE" | jq ".assets[0].id")
 DEPLOY_DIR="deploy"
 DEPLOY_ZIP="$DEPLOY_DIR.zip"
 
