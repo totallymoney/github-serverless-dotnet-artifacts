@@ -25,7 +25,22 @@ ENVIRONMENT=$3
 NOW_ISO=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 GITHUB_AUTH_HEADER="Authorization: token $GITHUB_OAUTH_TOKEN"
 RELEASES_API="https://api.github.com/repos/$REPOSITORY/releases"
-ASSET_ID=$(curl -s -H "$GITHUB_AUTH_HEADER" "$RELEASES_API/tags/$VERSION" | jq ".assets[0].id")
+
+VERSION_DETAILS_IN_JSON=$(curl -s -H "$GITHUB_AUTH_HEADER" "$RELEASES_API/tags/$VERSION")
+ERROR_MESSAGE=$(echo "$VERSION_DETAILS_IN_JSON" | jq ".message")
+
+if [ "$ERROR_MESSAGE" == "\"Bad credentials\"" ]; then
+    echo "Error: Invalid GITHUB_OAUTH_TOKEN"
+    exit 1
+elif [ "$ERROR_MESSAGE" == "\"Not found\"" ]; then
+    echo "Error: Could not find github repository, ensure the GITHUB_OAUTH_TOKEN and the VERSION are correct"
+    exit 1
+elif [ "$ERROR_MESSAGE" != "null" ]; then
+    echo "Error getting github repository: ${ERROR_MESSAGE}"
+    exit 1
+fi
+
+ASSET_ID=$(echo "$VERSION_DETAILS_IN_JSON" | jq ".assets[0].id")
 DEPLOY_DIR="deploy"
 DEPLOY_ZIP="$DEPLOY_DIR.zip"
 
