@@ -49,6 +49,6 @@ rm -rf $DEPLOY_DIR
 unzip $DEPLOY_ZIP -d $DEPLOY_DIR
 rm -rf $DEPLOY_ZIP
 cd $DEPLOY_DIR
-yarn install -s --no-progress
+yarn install -s --no-progress --frozen-lockfile
 DEPLOYED_DATE=$NOW_ISO yarn run sls deploy --stage "$ENVIRONMENT" --verbose
 cd .. || exit
