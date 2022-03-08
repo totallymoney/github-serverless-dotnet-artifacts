@@ -7,6 +7,7 @@ Serverless packaging is performed [correctly](https://blair55.github.io/blog/ser
 ## Requirements
 
 * `jq`, `yarn`, `curl` & `dotnet` are available on the command line
+* `gh` is available if deployin using github workflow
 * `Amazon.Lambda.Tools` dotnet tool is installed in the target project
 
 ```bash
