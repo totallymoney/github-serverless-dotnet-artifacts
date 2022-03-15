@@ -27,17 +27,20 @@ COMMIT=$4
 PUBLISH_DIR="publish"
 PUBLISH_ZIP="$VERSION.zip"
 
+# This will check for the occurance of arm64 in serverless.yml if it does not exist, we default to x86_64
+ARCH=$(grep -oh arm64 serverless.yml | awk -v def="x86_64" '{print} END { if(NR==0) {print def} }')
+
 rm -rf $PUBLISH_DIR
 mkdir $PUBLISH_DIR
 
 # can only publish ready to run on linux platform
 if [ "$(uname)" == "Linux" ]; then
     echo "Platform is Linux; PublishReadyToRun=true"
-    dotnet lambda package "$PUBLISH_DIR/package.zip" -pl "$PROJECT" -c Release \
+    dotnet lambda package "$PUBLISH_DIR/package.zip" -pl "$PROJECT" -c Release -farch "$ARCH" \
         --msbuild-parameters "/p:PublishReadyToRun=true --self-contained false"
 else
     echo "Platform is $(uname)"
-    dotnet lambda package "$PUBLISH_DIR/package.zip" -pl "$PROJECT" -c Release
+    dotnet lambda package "$PUBLISH_DIR/package.zip" -pl "$PROJECT" -c Release -farch "$ARCH"
 fi
 
 cp serverless.yml "$PUBLISH_DIR/serverless.yml"
