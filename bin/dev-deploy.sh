@@ -13,5 +13,5 @@ NOW_ISO=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 export VERSION="0.0.0"
 
 rm -rf "package.zip"
-dotnet lambda package "package.zip" -pl src -c Release
+dotnet lambda package "package.zip" -pl src -c Release -farch "arm64"
 DEPLOYED_DATE=$NOW_ISO yarn run sls deploy --stage "$ENVIRONMENT" --verbose

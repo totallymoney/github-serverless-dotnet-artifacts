@@ -29,17 +29,8 @@ PUBLISH_ZIP="$VERSION.zip"
 
 rm -rf $PUBLISH_DIR
 mkdir $PUBLISH_DIR
-
-# can only publish ready to run on linux platform
-if [ "$(uname)" == "Linux" ]; then
-    echo "Platform is Linux; PublishReadyToRun=true"
-    dotnet lambda package "$PUBLISH_DIR/package.zip" -pl "$PROJECT" -c Release \
-        --msbuild-parameters "/p:PublishReadyToRun=true --self-contained false"
-else
-    echo "Platform is $(uname)"
-    dotnet lambda package "$PUBLISH_DIR/package.zip" -pl "$PROJECT" -c Release
-fi
-
+dotnet lambda package "$PUBLISH_DIR/package.zip" \
+  -pl "$PROJECT" -c Release -farch "arm64" --msbuild-parameters "/p:PublishReadyToRun=true"
 cp serverless.yml "$PUBLISH_DIR/serverless.yml"
 cp package.json "$PUBLISH_DIR/package.json"
 cp yarn.lock "$PUBLISH_DIR/yarn.lock"
