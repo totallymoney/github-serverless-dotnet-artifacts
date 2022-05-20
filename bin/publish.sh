@@ -43,13 +43,44 @@ LATEST_TAG="$(git describe --tags --abbrev=0)"
 MSGS_SINCE_LATEST_TAG="$(git shortlog "$LATEST_TAG".."$COMMIT" --pretty="%h %s")"
 GITHUB_AUTH_HEADER="Authorization: token $GITHUB_OAUTH_TOKEN"
 
-jq -n \
+CREATE_RELEASE_REQUEST=$(
+  jq -n \
     --arg name "$VERSION" \
     --arg commit "$COMMIT" \
     --arg body "$MSGS_SINCE_LATEST_TAG" \
-    '{ tag_name: $name, name: $name, target_commitish: $commit, body: $body }' |
-    curl -s -X POST -H "$GITHUB_AUTH_HEADER" -d@- "https://api.github.com/repos/$REPOSITORY/releases" |
+    '{ tag_name: $name, name: $name, target_commitish: $commit, body: $body }')
+
+echo "Create release request:"
+echo "$CREATE_RELEASE_REQUEST"
+echo "**********************"
+
+CREATE_RELEASE_RESPONSE=$(
+  curl -s -X POST \
+    -H "$GITHUB_AUTH_HEADER" \
+    -d "$CREATE_RELEASE_REQUEST" \
+    "https://api.github.com/repos/$REPOSITORY/releases")
+
+echo "Create release response:"
+echo "$CREATE_RELEASE_RESPONSE"
+echo "**********************"
+
+RELEASE_UPLOAD_URL=$(
+  echo "$CREATE_RELEASE_RESPONSE" |
     jq ".upload_url" |
     sed "s/{?name,label}/?name=$PUBLISH_ZIP/" |
-    sed 's/"//g' |
-    xargs curl -s -X POST -H "$GITHUB_AUTH_HEADER" -H "Content-Type: application/octet-stream" --data-binary @"$PUBLISH_DIR/$PUBLISH_ZIP"
+    sed 's/"//g')
+
+echo "Upload url:"
+echo "$RELEASE_UPLOAD_URL"
+echo "**********************"
+
+UPLOAD_RESPONSE=$(
+  curl -s -X POST \
+    -H "$GITHUB_AUTH_HEADER" \
+    -H "Content-Type: application/octet-stream" \
+    --data-binary @"$PUBLISH_DIR/$PUBLISH_ZIP" \
+    "$RELEASE_UPLOAD_URL")
+
+echo "Upload response:"
+echo "$UPLOAD_RESPONSE"
+echo "**********************"
