@@ -14,7 +14,9 @@
     "gsda-publish": "bin/publish.sh",
     "gsda-deploy": "bin/deploy.sh",
     "gsda-dev-deploy": "bin/dev-deploy.sh",
-    "gsda-pick": "bin/pick.js"
+    "gsda-pick": "bin/pick.js",
+    "gsda-logs": "bin/logs.js",
+    "gsda-app": "bin/app.js"
   },
   "scripts": {
     "lint": "eslint ./lib ./bin",
@@ -25,12 +27,14 @@
     "async": "^3.2.3",
     "aws-sdk": "^2.1088.0",
     "command-exists": "^1.2.9",
+    "cwlogs-url-builder": "^0.1.0",
     "date-fns": "^2.28.0",
     "enquirer": "^2.3.6",
     "js-yaml": "^4.1.0",
     "minimist": "^1.2.5",
     "node-notifier": "^10.0.1",
     "number-to-words": "^1.2.4",
+    "open": "^8.4.0",
     "ora": "^6.1.0",
     "simple-git": "^3.2.6"
   },

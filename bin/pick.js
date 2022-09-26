@@ -5,13 +5,13 @@ import enq from 'enquirer'
 import p from '../lib/prompts.js'
 import getTags from '../lib/tags.js'
 import deploy from '../lib/deploy.js'
-import { envs, count, lambda, serviceName, functionName }
+import { envs, count, lambda, serviceName, functionNames, buildFullFunctionName }
   from '../lib/config.js'
 
 console.clear()
 
 // /*
-const tags = getTags(envs, lambda, functionName) // */
+const tags = getTags(envs, lambda, functionNames, buildFullFunctionName) // */
 
 /* handy stub for faster local iteration
 const tags = Promise.resolve({
