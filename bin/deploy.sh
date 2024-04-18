@@ -48,6 +48,12 @@ curl -sL -H "$GITHUB_AUTH_HEADER" -H "Accept: application/octet-stream" "$RELEAS
 rm -rf $DEPLOY_DIR
 unzip $DEPLOY_ZIP -d $DEPLOY_DIR
 rm -rf $DEPLOY_ZIP
+
+# Copy any .env files to deploy dir
+if ls '.env'* 1> /dev/null 2>&1; then
+    cp '.env'* $DEPLOY_DIR 
+fi
+
 cd $DEPLOY_DIR
 yarn install -s --no-progress --frozen-lockfile
 DEPLOYED_DATE=$NOW_ISO yarn run sls deploy --stage "$ENVIRONMENT" --verbose
