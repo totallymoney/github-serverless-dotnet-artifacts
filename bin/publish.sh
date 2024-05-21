@@ -27,7 +27,7 @@ done
 
 rm -rf ./publish
 mkdir ./publish
-dotnet lambda package ./publish/package.zip -pl "$PROJECT" -c Release -farch arm64
+dotnet lambda package ./publish/package.zip -pl "$PROJECT" -c Release -farch arm64 --msbuild-parameters /p:Version="$VERSION"
 cp ./{serverless.yml,package.json,yarn.lock} ./publish
 [ -d "./serverless-artifacts" ] && cp -r ./serverless-artifacts ./publish
 cd ./publish
