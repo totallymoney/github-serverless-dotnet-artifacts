@@ -30,6 +30,8 @@ mkdir ./publish
 dotnet lambda package ./publish/package.zip -pl "$PROJECT" -c Release -farch arm64
 cp ./{serverless.yml,package.json,yarn.lock} ./publish
 [ -d "./serverless-artifacts" ] && cp -r ./serverless-artifacts ./publish
-zip -r "./publish/archive.zip" ./publish
+cd ./publish
+zip -r archive.zip .
+cd ..
 gh release create "$VERSION" "./publish/archive.zip" --generate-notes
 rm -rf ./publish
