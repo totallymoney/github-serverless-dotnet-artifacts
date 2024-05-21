@@ -13,7 +13,8 @@ if [ $# -ne 2 ]; then
   exit 1
 fi
 
-VERSION=$1
+# export version so it can be read by sls `VERSION: ${env:VERSION, '0.0.0'}`
+export VERSION=$1
 ENVIRONMENT=$2
 NOW_ISO=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
