@@ -2,7 +2,7 @@
 
 set -ex
 
-REQUIREMENTS="gh yarn"
+REQUIREMENTS="gh yarn tar"
 for i in $REQUIREMENTS; do
   hash "$i" 2>/dev/null || { echo "$0": I require "$i" but it\'s not installed.; exit 1; }
 done
@@ -13,16 +13,18 @@ if [ $# -ne 2 ]; then
   exit 1
 fi
 
-# export version so it can be read by sls `VERSION: ${env:VERSION, '0.0.0'}`
-export VERSION=$1
+VERSION=$1
 ENVIRONMENT=$2
 NOW_ISO=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
-rm -rf ./deploy ./deploy.zip
-gh release download "$VERSION" --output deploy.zip
-unzip ./deploy.zip -d ./deploy
+rm -rf ./deploy
+mkdir ./deploy
 cd ./deploy
+gh release view "$VERSION" | cat
+gh release download "$VERSION" --output ./deploy.zip
+tar --extract --verbose --file=./deploy.zip
 yarn install --silent --no-progress --frozen-lockfile
-DEPLOYED_DATE=$NOW_ISO yarn run sls deploy --stage "$ENVIRONMENT" --verbose
+VERSION=$VERSION DEPLOYED_DATE=$NOW_ISO \
+  yarn run sls deploy --stage "$ENVIRONMENT" --verbose
 cd .. || exit
-rm -rf ./deploy ./deploy.zip
+rm -rf ./deploy

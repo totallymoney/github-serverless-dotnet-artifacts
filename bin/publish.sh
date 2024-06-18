@@ -2,7 +2,7 @@
 
 set -ex
 
-REQUIREMENTS="gh dotnet"
+REQUIREMENTS="gh dotnet tar"
 for i in $REQUIREMENTS; do
   hash "$i" 2>/dev/null || { echo "$0": I require "$i" but it\'s not installed.; exit 1; }
 done
@@ -29,9 +29,7 @@ rm -rf ./publish
 mkdir ./publish
 dotnet lambda package ./publish/package.zip -pl "$PROJECT" -c Release -farch arm64 --msbuild-parameters /p:Version="$VERSION"
 cp ./{serverless.yml,package.json,yarn.lock} ./publish
-[ -d "./serverless-artifacts" ] && cp -r ./serverless-artifacts ./publish
-cd ./publish
-zip -r archive.zip .
-cd ..
-gh release create "$VERSION" "./publish/archive.zip" --generate-notes
+[ -d ./serverless-artifacts ] && cp -r ./serverless-artifacts ./publish
+tar --create --verbose --file=./publish/archive.zip --directory=./publish .
+gh release create "$VERSION" ./publish/archive.zip --generate-notes
 rm -rf ./publish
