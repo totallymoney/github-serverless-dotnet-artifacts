@@ -25,11 +25,11 @@ while getopts "p::" opt; do
   esac
 done
 
-rm -rf ./publish
-mkdir ./publish
-dotnet lambda package ./publish/package.zip -pl "$PROJECT" -c Release -farch arm64 --msbuild-parameters /p:Version="$VERSION"
-cp ./{serverless.yml,package.json,yarn.lock} ./publish
-[ -d ./serverless-artifacts ] && cp -r ./serverless-artifacts ./publish
-tar --create --verbose --file=./publish/archive.zip --directory=./publish .
-gh release create "$VERSION" ./publish/archive.zip --generate-notes
-rm -rf ./publish
+rm -rf .gsda
+mkdir .gsda
+dotnet lambda package .gsda/package.zip -pl "$PROJECT" -c Release -farch arm64 --msbuild-parameters /p:Version="$VERSION"
+cp ./{serverless.yml,package.json,yarn.lock} .gsda
+[ -d ./serverless-artifacts ] && cp -r ./serverless-artifacts .gsda
+tar --create --verbose --file=.gsda/archive.zip --directory=.gsda .
+gh release create "$VERSION" .gsda/archive.zip --generate-notes
+rm -rf .gsda

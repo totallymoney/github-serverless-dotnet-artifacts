@@ -17,14 +17,14 @@ VERSION=$1
 ENVIRONMENT=$2
 NOW_ISO=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 
-rm -rf ./deploy
-mkdir ./deploy
-cd ./deploy
+rm -rf .gsda
+mkdir .gsda
+cd .gsda
 gh release view "$VERSION" | cat
-gh release download "$VERSION" --output ./deploy.zip
-tar --extract --verbose --file=./deploy.zip
+gh release download "$VERSION" --output archive.zip
+tar --extract --verbose --file=archive.zip
 yarn install --silent --no-progress --frozen-lockfile
 VERSION=$VERSION DEPLOYED_DATE=$NOW_ISO \
   yarn run sls deploy --stage "$ENVIRONMENT" --verbose
 cd .. || exit
-rm -rf ./deploy
+rm -rf .gsda
