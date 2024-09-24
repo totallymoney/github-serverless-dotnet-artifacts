@@ -20,6 +20,6 @@ NOW_ISO=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 export VERSION="0.0.0"
 
 rm -rf "package.zip"
-
+aws sts get-caller-identity --no-cli-pager || aws sso login
 dotnet lambda package "package.zip" -pl "$PROJECT_PATH" -c Release -farch "arm64"
 DEPLOYED_DATE=$NOW_ISO yarn run sls deploy --stage "$ENVIRONMENT" --verbose
