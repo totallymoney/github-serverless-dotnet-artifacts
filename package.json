@@ -13,8 +13,8 @@
   "bin": {
     "gsda-publish": "bin/publish.sh",
     "gsda-deploy": "bin/deploy.sh",
-    "gsda-dev-deploy": "(aws sts get-caller-identity --no-cli-pager || aws sso login) && bin/dev-deploy.sh",
-    "gsda-pick": "(aws sts get-caller-identity --no-cli-pager || aws sso login) && bin/pick.js",
+    "gsda-dev-deploy": "bin/pre-dev-deploy.sh",
+    "gsda-pick": "bin/pre-pick.js",
     "gsda-logs": "bin/logs.js",
     "gsda-app": "bin/app.js"
   },

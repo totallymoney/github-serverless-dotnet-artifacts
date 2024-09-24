@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 REQUIREMENTS="gh yarn tar"
 for i in $REQUIREMENTS; do
@@ -20,7 +20,6 @@ NOW_ISO=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
 rm -rf .gsda
 mkdir .gsda
 cd .gsda
-gh release view "$VERSION" | cat
 gh release download "$VERSION" --output archive.zip
 tar --extract --verbose --file=archive.zip
 yarn install --silent --no-progress --frozen-lockfile
