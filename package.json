@@ -13,8 +13,8 @@
   "bin": {
     "gsda-publish": "bin/publish.sh",
     "gsda-deploy": "bin/deploy.sh",
-    "gsda-dev-deploy": "bin/dev-deploy.sh",
-    "gsda-pick": "bin/pick.js",
+    "gsda-dev-deploy": "(aws sts get-caller-identity --no-cli-pager || aws sso login) && bin/dev-deploy.sh",
+    "gsda-pick": "(aws sts get-caller-identity --no-cli-pager || aws sso login) && bin/pick.js",
     "gsda-logs": "bin/logs.js",
     "gsda-app": "bin/app.js"
   },
@@ -24,8 +24,9 @@
     "postversion": "git push && git push --tags"
   },
   "dependencies": {
+    "@aws-sdk/client-lambda": "^3.656.0",
+    "@aws-sdk/credential-providers": "^3.654.0",
     "async": "^3.2.3",
-    "aws-sdk": "^2.1088.0",
     "command-exists": "^1.2.9",
     "cwlogs-url-builder": "^0.1.0",
     "date-fns": "^2.28.0",
