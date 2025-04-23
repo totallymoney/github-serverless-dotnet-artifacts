@@ -1,7 +1,8 @@
 name: Publish Package to npmjs
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,7 +17,7 @@ jobs:
           registry-url: "https://npm.pkg.github.com"
           cache: yarn
           cache-dependency-path: yarn.lock
-      - run: yarn
+      - run: yarn --frozen-lockfile
       - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
