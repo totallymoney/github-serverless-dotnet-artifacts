@@ -18,6 +18,7 @@ jobs:
           cache: yarn
           cache-dependency-path: yarn.lock
       - run: yarn --frozen-lockfile
-      - run: yarn publish --access public
+      - run: yarn publish --no-git-tag-version --minor --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: stefanzweifel/git-auto-commit-action@v5
