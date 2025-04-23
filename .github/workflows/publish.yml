@@ -1,8 +1,7 @@
-name: Publish Package to npmjs
+name: Publish package to GitHub Packages
 on:
   push:
-    branches:
-      - master
+    branches: [master]
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,7 +17,7 @@ jobs:
           cache: yarn
           cache-dependency-path: yarn.lock
       - run: yarn --frozen-lockfile
-      - run: yarn publish --patch --access public
+      - run: yarn publish --no-git-tag-version --patch --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - uses: stefanzweifel/git-auto-commit-action@v5
