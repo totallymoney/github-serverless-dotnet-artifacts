@@ -1,6 +1,6 @@
 {
   "name": "@totallymoney/github-serverless-dotnet-artifacts",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "description": "Use github releases to publish and deploy serverless framework dotnet projects",
   "type": "module",
   "author": "totallymoney",
