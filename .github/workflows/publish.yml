@@ -17,6 +17,7 @@ jobs:
           cache: yarn
           cache-dependency-path: yarn.lock
       - run: yarn --frozen-lockfile
+      # edit package.json to bump major/minor version
       - run: yarn publish --no-git-tag-version --patch --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
