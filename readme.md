@@ -65,7 +65,7 @@ $ yarn pick
 
 ## Development
 
-Make sure you belong to the [totallymoney](https://www.npmjs.com/settings/totallymoney/packages) npm organization. Then make changes to the source code and publish. Enter the new version number as prompted. A git push command will run automatically after publishing.
+Make sure you belong to the [totallymoney](https://www.npmjs.com/settings/totallymoney/packages) npm organization, or use the "NPM Service Account" credentials found in keeper when the publish step asks to auth. Then make changes to the source code and publish. Enter the new version number as prompted. A git push command will run automatically after publishing.
 
 ```bash
 $ git commit -am "Improve logging"
